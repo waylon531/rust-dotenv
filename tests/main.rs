@@ -6,12 +6,24 @@ use std::path::Path;
 use std::fs;
 
 #[test]
-fn test_dotenv_default_location() {
-    dotenv().ok();
+fn test_dotenv() {
+    let new_path = Path::new("./tests");
+    assert!(env::set_current_dir(&new_path).is_ok());
 
+    dotenv().ok();
     assert_eq!(env::var("TESTKEY").unwrap(), "test_val");
 }
 
+
+#[test]
+fn make_test_fail() {
+    let new_path = Path::new("./child");
+    assert!(env::set_current_dir(&new_path).is_ok());
+    let new_path2 = Path::new("..");
+    assert!(env::set_current_dir(&new_path2).is_ok());
+}
+
+/*
 #[test]
 fn test_dotenv_child_dir() {
     let new_path = Path::new("./src");
@@ -22,3 +34,4 @@ fn test_dotenv_child_dir() {
     dotenv().ok();
     assert_eq!(env::var("TESTKEY").unwrap(), "test_val");
 }
+*/
