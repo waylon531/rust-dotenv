@@ -3,7 +3,6 @@ extern crate dotenv;
 use dotenv::*;
 use std::env;
 use std::path::Path;
-use std::fs;
 
 fn init() {
     let manifest_dir = env!("CARGO_MANIFEST_DIR").to_string() + "/tests";
@@ -12,7 +11,8 @@ fn init() {
 }
 
 fn clear() {
-    env::set_var("TESTKEY", "");
+    env::remove_var("TESTKEY");
+    env::remove_var("NOTTESTKEY");
 }
 
 #[test]
@@ -38,7 +38,6 @@ fn test_from_filename() {
     init();
     from_filename("notenv").ok();
     assert_eq!(env::var("NOTTESTKEY").unwrap(), "not_test_val");
-    //assert!(!env::var("TESTKEY").is_ok());
-    println!("ff {:?}", env::var("TESTKEY"));
+    assert!(!env::var("TESTKEY").is_ok());
     clear();
 }
