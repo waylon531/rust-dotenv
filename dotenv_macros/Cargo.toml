@@ -1,6 +1,7 @@
 [package]
-name = "dotenv_codegen_impl"
-version = "0.1.0"
+
+name = "dotenv_macros"
+version = "0.10.0"
 authors = [
   "Santiago Lapresta <santiago.lapresta@gmail.com>",
   "Craig Hills <chills@gmail.com>",
@@ -8,18 +9,16 @@ authors = [
   "Alice Maz <alice@alicemaz.com>",
   "Sean Griffin <sean@seantheprogrammer.com>",
 ]
-readme = "../../README.md"
+readme = "../README.md"
 keywords = ["environment", "env", "dotenv", "settings", "config"]
 license = "MIT"
-homepage = "https://github.com/purpliminal/rust-dotenv"
-repository = "https://github.com/purpliminal/rust-dotenv"
+homepage = "https://github.com/slapresta/rust-dotenv"
+repository = "https://github.com/slapresta/rust-dotenv"
 description = "A `dotenv` implementation for Rust"
 
-[lib]
-proc-macro = true
-
 [dependencies]
-dotenv = "^0.8.0"
-proc-macro-hack = "0.4"
-quote = "0.3"
-syn = "0.11"
+dotenv_codegen = { version = "0.10.0", default-features = false }
+
+[lib]
+name = "dotenv_macros"
+plugin = true
